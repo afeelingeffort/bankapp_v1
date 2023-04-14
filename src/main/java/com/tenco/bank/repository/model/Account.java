@@ -4,9 +4,7 @@ import java.sql.Timestamp;
 
 import lombok.Data;
 
-/*
- * 모델 클래스 (Value Object 역할만 하는 것은 아니다.) 
- * */
+// db에서 생성한 모델 클래스
 @Data
 public class Account {
 
