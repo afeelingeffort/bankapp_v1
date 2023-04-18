@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.tenco.bank.dto.SignInFormDto;
+import com.tenco.bank.dto.SignUpFormDto;
 import com.tenco.bank.repository.model.User;
 
 @Mapper // MyBatis 의존 설정함
 public interface UserRepository {
 
-	public int insert(User user); 
+	public int insert(SignUpFormDto signUpFormDto); 
+	public int insert(SignInFormDto signInFormDto); 
 
 	public int updateById(User user); 
 
