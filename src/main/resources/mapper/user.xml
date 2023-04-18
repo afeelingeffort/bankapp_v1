@@ -26,6 +26,12 @@
 	<select id="findAll" resultType="com.tenco.bank.repository.model.User">
 		select * from user_tb
 	</select>
+
+	<!-- 새로운 기능 -->
+	<select id="findByUsernameAndPassword" resultType="com.tenco.bank.repository.model.User">
+		select * from user_tb 
+		where username=#{username} AND password=#{password}
+	</select>
 </mapper>
 
 

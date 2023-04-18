@@ -9,11 +9,13 @@ import com.tenco.bank.dto.SignInFormDto;
 import com.tenco.bank.dto.SignUpFormDto;
 import com.tenco.bank.handler.exception.CustomRestfullException;
 import com.tenco.bank.repository.interfaces.UserRepository;
+import com.tenco.bank.repository.model.User;
 
 // 서비스는 서비스 ~ 
 @Service // IoC 대상
 public class UserService {
 
+	
 	@Autowired // DI 처리 (객체 생성시 의존 주입 처리)
 	private UserRepository userRepository; // 인터페이스
 
@@ -30,12 +32,21 @@ public class UserService {
 		}
 	}
 
-//	@Transactional
-//	public void signIn(SignInFormDto signInFormDto) {
-//		int result = userRepository.insert(signInFormDto);
-//
-//		if (result != 1) {
-//			throw new CustomRestfullException("로그인 실패", HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
+	/*
+	 * 로그인 서비스 처리
+	 * @param signInformDto
+	 * @return userEntity 응답
+	 * */
+	@Transactional
+	public User signIn(SignInFormDto signInFormDto) {
+		// todo
+		// userRepository.xxx() 호출
+		User userEntity = userRepository.findByUsernameAndPassword(signInFormDto);
+
+		if (userEntity == null) {
+			throw new CustomRestfullException("아이디 혹은 비밀번호가 틀렸습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return userEntity;
+	}
 }

@@ -12,7 +12,6 @@ import com.tenco.bank.repository.model.User;
 public interface UserRepository {
 
 	public int insert(SignUpFormDto signUpFormDto); 
-	public int insert(SignInFormDto signInFormDto); 
 
 	public int updateById(User user); 
 
@@ -21,5 +20,8 @@ public interface UserRepository {
 	public User findById(Integer id); // 한 사람 조회
 
 	public List<User> findAll(); // 모두 조회
+	
+	// 추가 작업
+	public User findByUsernameAndPassword(SignInFormDto signInFormDto);
 
 }
