@@ -30,4 +30,16 @@ public class MyRestfullExceptionHandler {
 		return sb.toString();
 	}
 	
+	@ExceptionHandler(UnAuthorizedException.class)
+	public String unAuthorizedException(UnAuthorizedException e) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("<script>");
+		// 반드시 마지막에 세미콜론을 붙여야 한다.
+		sb.append("alert('"+e.getMessage()+"');");
+		sb.append("location.href='/user/sign-in';");
+		sb.append("</script>");
+		
+		return sb.toString();
+	}
+	
 }

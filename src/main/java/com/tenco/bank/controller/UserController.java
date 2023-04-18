@@ -100,9 +100,16 @@ public class UserController {
 		// 서비스 호출
 		// 사용자 정보 세션에 저장
 		User principal = userService.signIn(signInFormDto);
+		principal.setPassword(null); // 비밀번호는 보안상 null 처리
 		session.setAttribute("principal", principal);
 
 		return "/account/list";
 	}
 
+	@GetMapping("/logout")
+	public String logout() {
+		session.invalidate();
+		
+		return "redirect:/user/sign-in";
+	}
 }
