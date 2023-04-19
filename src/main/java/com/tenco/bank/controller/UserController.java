@@ -59,7 +59,7 @@ public class UserController {
 		}
 
 		// 서비스 호출
-		userService.signUp(signUpFormDto);
+		userService.createUser(signUpFormDto);
 
 		return "redirect:/user/sign-in";
 	}

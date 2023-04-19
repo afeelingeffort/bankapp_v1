@@ -23,7 +23,7 @@ public class UserService {
 	// 메서드 종료시 트랜잭션 종료되면 '커밋'한다.
 	// (커밋 : 저장 장치에 실제로 저장한다.)
 	@Transactional
-	public void signUp(SignUpFormDto signUpFormDto) {
+	public void createUser(SignUpFormDto signUpFormDto) {
 		// 매개변수로 dto 넣음.
 		// signUpFormDto, User
 		int result = userRepository.insert(signUpFormDto);
