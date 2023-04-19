@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class DepositFormDto {
 
-	private long amount;
+	private Long amount;
 	private String dAccountNumber; // 계좌번호
 	
 }
