@@ -18,6 +18,7 @@ import com.tenco.bank.handler.exception.UnAuthorizedException;
 import com.tenco.bank.repository.model.Account;
 import com.tenco.bank.repository.model.User;
 import com.tenco.bank.service.AccountService;
+import com.tenco.bank.utils.Define;
 
 @Controller
 @RequestMapping("/account")
@@ -52,7 +53,7 @@ public class AccountController {
 //		throw new CustomPageException("페이지를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
 
 //		// 인증검사 처리
-		User principal = (User) session.getAttribute("principal");
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		if (principal == null) {
 			throw new UnAuthorizedException("로그인 먼저 해주세요.", HttpStatus.UNAUTHORIZED);
 		}
@@ -101,7 +102,7 @@ public class AccountController {
 	@GetMapping("/save")
 	public String save() {
 		// 인증 검사 처리
-		User principal = (User) session.getAttribute("principal");
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		if (principal == null) {
 			throw new UnAuthorizedException("로그인 먼저 해주세요.", HttpStatus.UNAUTHORIZED);
 		}
@@ -120,7 +121,7 @@ public class AccountController {
 	public String saveProc(SaveFormDto saveFormDto) {
 
 		// 여기서도 인증 검사
-		User user = (User) session.getAttribute("principal");
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
 		if (user == null) {
 			throw new UnAuthorizedException("로그인 먼저 해주세요.", HttpStatus.UNAUTHORIZED);
 		}

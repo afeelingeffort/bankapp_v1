@@ -14,6 +14,7 @@ import com.tenco.bank.dto.SignUpFormDto;
 import com.tenco.bank.handler.exception.CustomRestfullException;
 import com.tenco.bank.repository.model.User;
 import com.tenco.bank.service.UserService;
+import com.tenco.bank.utils.Define;
 
 @Controller
 @RequestMapping("/user")
@@ -99,9 +100,9 @@ public class UserController {
 		// 사용자 정보 세션에 저장
 		User principal = userService.signIn(signInFormDto);
 		principal.setPassword(null); // 비밀번호는 보안상 null 처리
-		session.setAttribute("principal", principal);
+		session.setAttribute(Define.PRINCIPAL, principal);
 
-		return "/account/list";
+		return "redirect:/account/list";
 	}
 
 	@GetMapping("/logout")
