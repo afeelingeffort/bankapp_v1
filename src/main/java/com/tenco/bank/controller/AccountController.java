@@ -85,11 +85,12 @@ public class AccountController {
 		if (principal == null) {
 			throw new UnAuthorizedException("로그인 먼저 해주세요.", HttpStatus.UNAUTHORIZED);
 		}
-
+		// GetMapping은 header에서 쓰이고 누르면 바로 form 페이지로 넘어간다고 생각하삼
 		return "/account/withdrawForm";
 	}
 
 	// 출금 처리 기능
+	// PostMapping은 form태그 속성으로 넘어감
 	@PostMapping("/withdraw-proc")
 	public String withdrawProc(WithdrawFormDto withdrawFormDto) {
 

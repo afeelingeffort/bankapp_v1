@@ -83,13 +83,14 @@ public class AccountService {
 		}
 
 		// 3. 계좌 비번 확인 
-		// ??
+		// String이라서 equals 씀.
 		// T == F --> F
 		if (accountEntity.getPassword().equals(withdrawFormDto.getWAccountPassword()) == false) {
 			throw new CustomRestfullException("출금 계좌 비밀번호가 틀렸습니다.", HttpStatus.UNAUTHORIZED);
 		}
 
 		// 4. 잔액 여부 확인
+		// 잔액이 출금 금액보다 작으면 실행 
 		if (accountEntity.getBalance() < withdrawFormDto.getAmount()) {
 			throw new CustomRestfullException("계좌 잔액이 부족합니다.", HttpStatus.BAD_REQUEST);
 		}
@@ -107,7 +108,8 @@ public class AccountService {
 		 * d_account_id, createdAt) values(#{amount}, #{wBalance}, #{dBalance},
 		 * #{wAccountId}, #{dAccountId}, now())
 		 */
-		// 출금이니까 입금은 null 처리?
+		// 출금 처리니까 입금은 null 처리
+		// amount는 앞에서(dto) 값을 받아온대
 		history.setAmount(withdrawFormDto.getAmount());
 		history.setWBalance(accountEntity.getBalance());
 		history.setDBalance(null);
