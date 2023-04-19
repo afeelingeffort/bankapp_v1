@@ -39,9 +39,7 @@ public class UserController {
 	// dto : object mapper 처리
 	/*
 	 * 회원가입 처리
-	 * 
 	 * @param signUpFormDto
-	 * 
 	 * @return 리다이렉트로 로그인 페이지
 	 */
 	@PostMapping("/sign-up")

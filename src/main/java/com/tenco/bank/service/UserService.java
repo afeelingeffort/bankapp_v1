@@ -15,10 +15,10 @@ import com.tenco.bank.repository.model.User;
 @Service // IoC 대상
 public class UserService {
 
-	
 	@Autowired // DI 처리 (객체 생성시 의존 주입 처리)
 	private UserRepository userRepository; // 인터페이스
 
+	// 회원가입 서비스 처리
 	// 메서드 호출이 시작될 때 트랜잭션에 시작
 	// 메서드 종료시 트랜잭션 종료되면 '커밋'한다.
 	// (커밋 : 저장 장치에 실제로 저장한다.)
@@ -34,9 +34,11 @@ public class UserService {
 
 	/*
 	 * 로그인 서비스 처리
+	 * 
 	 * @param signInformDto
+	 * 
 	 * @return userEntity 응답
-	 * */
+	 */
 	@Transactional
 	public User signIn(SignInFormDto signInFormDto) {
 		// todo

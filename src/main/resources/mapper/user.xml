@@ -30,7 +30,7 @@
 	<!-- 새로운 기능 -->
 	<select id="findByUsernameAndPassword" resultType="com.tenco.bank.repository.model.User">
 		select * from user_tb 
-		where username=#{username} AND password=#{password}
+		where username=#{username} and password=#{password}
 	</select>
 </mapper>
 
