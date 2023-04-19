@@ -2,14 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.tenco.bank.repoistory.interfaces.HistoryRepository">
+<mapper namespace="com.tenco.bank.repository.interfaces.HistoryRepository">
 	
-	<insert id="insertById" parameterType="com.tenco.bank.repository.model.History">
-		insert into history_tb (amount, w_balance, d_balance, w_account_id, d_account_id, createdAt)
+	<insert id="insert">
+		insert into 
+		history_tb (amount, w_balance, d_balance, w_account_id, d_account_id, created_at)
 		values(#{amount}, #{wBalance}, #{dBalance}, #{wAccountId}, #{dAccountId}, now())
 	</insert>
 	
-	<update id="updateById" parameterType="com.tenco.bank.repository.model.History">
+	<update id="updateById">
 		update history_tb 
 		set amount = #{amount}, w_balance = #{wBalance}, d_balance = #{dBalance}
 		, w_account_id = #{wAccountId}, d_account_id = #{dAccountId}

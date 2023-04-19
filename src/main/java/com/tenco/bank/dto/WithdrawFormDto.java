@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class WithdrawFormDto {
 	
-	private long amount;
+	private Long amount;
 	private String wAccountNumber;
 	private String wAccountPassword;
 	

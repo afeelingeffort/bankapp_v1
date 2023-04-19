@@ -22,8 +22,8 @@ public class Account {
 	public void deposit(Long amount) {
 		this.balance += amount;
 	}
-	
-	// 패스워드 체크 
+
+	// 패스워드 체크
 	// 잔액 여부 확인 (출금시)
-	// 계좌 소유자 확인 
+	// 계좌 소유자 확인
 }

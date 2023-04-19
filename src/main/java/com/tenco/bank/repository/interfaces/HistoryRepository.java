@@ -10,7 +10,7 @@ import com.tenco.bank.repository.model.History;
 @Mapper
 public interface HistoryRepository {
 
-	public int insertById(History history);
+	public int insert(History history);
 
 	public int updateById(History history);
 
