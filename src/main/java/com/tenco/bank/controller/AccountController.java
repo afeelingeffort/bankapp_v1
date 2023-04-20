@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tenco.bank.dto.DepositFormDto;
 import com.tenco.bank.dto.SaveFormDto;
+import com.tenco.bank.dto.TransferFormDto;
 import com.tenco.bank.dto.WithdrawFormDto;
 import com.tenco.bank.handler.exception.CustomRestfullException;
 import com.tenco.bank.handler.exception.UnAuthorizedException;
@@ -163,7 +164,55 @@ public class AccountController {
 	// 이체 페이지
 	@GetMapping("/transfer")
 	public String transfer() {
+
+		// 인증 처리
+		if (session.getAttribute(Define.PRINCIPAL) == null) {
+			throw new CustomRestfullException("로그인 먼저 해주세요.", HttpStatus.UNAUTHORIZED);
+		}
+
 		return "/account/transferForm";
+	}
+
+	// 이체 기능 만들기
+	@PostMapping("/transfer-proc")
+	public String transferProc(TransferFormDto transferFormDto) {
+
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		// 인증 처리
+		if (principal == null) {
+			throw new CustomRestfullException("로그인 먼저 해주세요.", HttpStatus.UNAUTHORIZED);
+		}
+
+		// 유효성 검사
+		// 1. 출금 계좌번호 입력 여부 확인
+		if (transferFormDto.getWAccountNumber() == null || transferFormDto.getWAccountNumber().isEmpty()) {
+			throw new CustomRestfullException("출금 계좌번호를 입력해주세요.", HttpStatus.BAD_REQUEST);
+		}
+
+		// 2. 입금 계좌번호 입력 여부 확인
+		if (transferFormDto.getDAccountNumber() == null || transferFormDto.getDAccountNumber().isEmpty()) {
+			throw new CustomRestfullException("입금 계좌번호를 입력해주세요.", HttpStatus.BAD_REQUEST);
+		}
+
+		// 3. 출금 계좌 비밀번호 입력 여부 확인
+		if (transferFormDto.getWAccountPassword() == null || transferFormDto.getWAccountPassword().isEmpty()) {
+			throw new CustomRestfullException("출금 계좌 비밀번호를 입력해주세요.", HttpStatus.BAD_REQUEST);
+		}
+
+		// 4. 이체 금액 0원 이상 확인
+		if (transferFormDto.getAmount() <= 0) {
+			throw new CustomRestfullException("이체 금액이 0원 이하일 수 없습니다.", HttpStatus.BAD_REQUEST);
+		}
+
+		// 5. 출금 계좌 입금 계좌 동일 여부 확인
+		if (transferFormDto.getWAccountNumber().equals(transferFormDto.getDAccountNumber())) {
+			throw new CustomRestfullException("출금 계좌와 입금 계좌는 동일할 수 없습니다.", HttpStatus.BAD_REQUEST);
+		}
+
+		// 서비스 호출
+		accountService.updateAccountTransfer(transferFormDto, principal.getId());
+		
+		return "redirect:/account/list";
 	}
 
 	// 계좌 상세보기 페이지
@@ -193,7 +242,7 @@ public class AccountController {
 	 */
 	@PostMapping("/save-proc")
 	public String saveProc(SaveFormDto saveFormDto) {
-		
+
 		// 여기서도 인증 검사
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
 		if (user == null) {
