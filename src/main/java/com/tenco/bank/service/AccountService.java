@@ -11,6 +11,7 @@ import com.tenco.bank.dto.DepositFormDto;
 import com.tenco.bank.dto.SaveFormDto;
 import com.tenco.bank.dto.TransferFormDto;
 import com.tenco.bank.dto.WithdrawFormDto;
+import com.tenco.bank.dto.response.HistoryDto;
 import com.tenco.bank.handler.exception.CustomRestfullException;
 import com.tenco.bank.repository.interfaces.AccountRepository;
 import com.tenco.bank.repository.interfaces.HistoryRepository;
@@ -49,6 +50,17 @@ public class AccountService {
 			throw new CustomRestfullException("계좌 생성 실패", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+	}
+
+	// 단일 계좌 검색 기능
+	public Account readAccount(Integer id) {
+		Account accountEntity = accountRepository.findById(id);
+
+		if (accountEntity == null) {
+			throw new CustomRestfullException("해당 계좌를 찾을 수 없습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return accountEntity;
 	}
 
 	// repository 인터페이스 생성 -> service
@@ -158,7 +170,7 @@ public class AccountService {
 	// 이체 기능 만들기 -> update
 	// 1. 출금 계좌 존재 여부 확인 -> select
 	// 2. 입금 계좌 존재 여부 확인 -> select
-	// 3. 출금 계좌 본인 소유 확인 -> 1번(Entity) == (principal) 모르겠는데
+	// 3. 출금 계좌 본인 소유 확인 -> 1번(Entity) == (principal)
 	// 4. 출금 계좌 비번 확인 -> 1번(Entity) == (Dto)
 	// 5. 출금 계좌 잔액 여부 확인 -> 1번(Entity) == (Dto)
 	// 6. 출금 계좌 잔액 변경 (이체 기능) -> update
@@ -214,6 +226,24 @@ public class AccountService {
 		if (resultRowCount != 1) {
 			throw new CustomRestfullException("정상 처리 되지 않았습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	/*
+	 * 단일 계좌 거래 내역 검색
+	 * @param type = [all, deposit, withdraw]
+	 * @param id (account_id)
+	 * @return 입금, 출금, 입출금 거래내역 (3가지 타입)
+	 * */
+	// !!! 리턴 타입 List<HistoryDto> !!!
+	@Transactional
+	public List<HistoryDto> readHistoryListByAccount(String type, Integer id) {
+		List<HistoryDto> historyDtos = historyRepository.findByIdHistoryType(type, id);
+		
+		historyDtos.forEach(e->{
+			System.out.println(e);
+		});
+		// 거래 내역이 없을 수도 있으니 예외처리 안함.
+		return historyDtos;
 	}
 
 }

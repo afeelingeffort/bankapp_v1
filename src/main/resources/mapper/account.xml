@@ -20,7 +20,7 @@
 	</delete>
 	
 	<select id="findById" resultType="com.tenco.bank.repository.model.Account">
-		select from account_tb 
+		select * from account_tb 
 		where id = #{id}
 	</select>	
 	

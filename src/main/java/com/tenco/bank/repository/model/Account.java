@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import org.springframework.http.HttpStatus;
 
 import com.tenco.bank.handler.exception.CustomRestfullException;
+import com.tenco.bank.utils.MoneyFormatUtil;
 
 import lombok.Data;
 
@@ -45,7 +46,12 @@ public class Account {
 	public void checkOwner(Integer principalId) {
 		if (this.userId != principalId) {
 			// FORBIDDEN이 뭐임?
+			// FORBIDDEN 인증은 하였으나 접근 권한이 없는 상태
 			throw new CustomRestfullException("계좌 소유자가 아닙니다.", HttpStatus.FORBIDDEN);
 		}
+	}
+	
+	public String formatMoney() {
+		return MoneyFormatUtil.moneyFormat(balance);
 	}
 }

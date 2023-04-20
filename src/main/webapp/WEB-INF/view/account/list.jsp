@@ -18,8 +18,9 @@
 				<tbody>
 					<c:forEach var="account" items="${accountList}">
 						<tr>
-							<td>${account.number}</td>
-							<td>${account.balance}</td>
+						<!-- pathVariable -->
+							<td><a href="/account/detail/${account.id}">${account.number}</a></td>
+							<td>${account.formatMoney()}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -29,6 +30,7 @@
 			<p>아직 생성된 계좌가 없습니다.</p>
 		</c:otherwise>
 	</c:choose>
+</div>
 </div>
 
 <br>
