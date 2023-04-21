@@ -1,9 +1,11 @@
-package com.tenco.bank.handler.exception;
+package com.tenco.bank.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.tenco.bank.handler.exception.CustomPageException;
 
 /*
  * View 렌더링을 위해 ModelAndView
