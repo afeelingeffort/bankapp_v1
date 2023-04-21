@@ -1,13 +1,16 @@
 package com.tenco.bank.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.tenco.bank.handler.AuthInterceptor;
 
-@Configuration
+@Configuration // IoC 등록 2개 이상의 Bean
 public class WebMvcConfig implements WebMvcConfigurer {
 
 	@Autowired // DI
@@ -24,4 +27,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //		registry.addInterceptor(new AdminInterceptor());
 	}
 
+	@Bean // IoC 관리 대상으로 만들기
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder(); 
+	}
+	
 }

@@ -1,5 +1,6 @@
 package com.tenco.bank.handler;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,6 +22,17 @@ public class MyPageExceptionHandler {
 		// ModelAndView 활용 방법
 		// suffix
 		// preffix
+		ModelAndView modelAndView = new ModelAndView("errorPage");
+		// modelAndView에 값을 실어 보낼 수 있다. ""<- 안에 쓴 거랑 jsp 파일 ${}랑 연결
+		modelAndView.addObject("statusCode", HttpStatus.NOT_FOUND.value());
+		modelAndView.addObject("message", e.getMessage());
+		
+		return modelAndView;
+	}
+	
+	// MyBatis 제약 오류 처리
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ModelAndView dataIntegrityViolationException(DataIntegrityViolationException e) {
 		ModelAndView modelAndView = new ModelAndView("errorPage");
 		// modelAndView에 값을 실어 보낼 수 있다. ""<- 안에 쓴 거랑 jsp 파일 ${}랑 연결
 		modelAndView.addObject("statusCode", HttpStatus.NOT_FOUND.value());

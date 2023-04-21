@@ -24,4 +24,7 @@ public interface UserRepository {
 	// 추가 작업
 	public User findByUsernameAndPassword(SignInFormDto signInFormDto);
 
+	// 암호화 작업
+	public User findByUsername(String username);
+	
 }

@@ -7,30 +7,35 @@
 		insert into user_tb (username, password, fullname, created_at)
 		values( #{username}, #{password}, #{fullname}, now() )
 	</insert>
-	
+
 	<update id="updateById">
 		update user_tb set username = #{username}, password = #{password}, fullname = #{fullname}
 		where id = #{id}
 	</update>
-	
+
 	<delete id="deleteById">
-		delete from user_tb 
+		delete from user_tb
 		where id = #{id}
 	</delete>
-	
+
 	<select id="findById" resultType="com.tenco.bank.repository.model.User">
 		select from user_tb
 		where id = #{id}
 	</select>
-	
+
 	<select id="findAll" resultType="com.tenco.bank.repository.model.User">
 		select * from user_tb
 	</select>
 
 	<!-- 새로운 기능 -->
 	<select id="findByUsernameAndPassword" resultType="com.tenco.bank.repository.model.User">
-		select * from user_tb 
+		select * from user_tb
 		where username=#{username} and password=#{password}
+	</select>
+
+	<select id="findByUsername" resultType="com.tenco.bank.repository.model.User">
+		select * from user_tb
+		where username=#{username}
 	</select>
 </mapper>
 
