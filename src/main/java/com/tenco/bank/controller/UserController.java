@@ -97,9 +97,9 @@ public class UserController {
 				// 전체 경로를 지정
 				// File.separator = / 같은 거라고 생각하자.
 				String uploadPath = Define.UPLOAD_DIRECTORY + File.separator + fileName;
-				
 				// 만들어짐
 				File destination = new File(uploadPath);
+				
 				// 업로드한 파일을 로컬 저장소에 저장하는 방법
 				file.transferTo(destination);
 				
