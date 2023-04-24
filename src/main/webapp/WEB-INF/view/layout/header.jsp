@@ -51,7 +51,16 @@
 			<div class="col-sm-4">
 				<h2>About Me</h2>
 				<h5>Photo of me:</h5>
-				<div class="m--profile"></div>
+				<c:choose>
+					<c:when test="${principal != null}">
+						<%-- 사용자 이미지 or 사용자 이미지 등록 안 함 --%>
+						<%-- WebMvcConfig에 등록한 addResource.. 의 --%>
+						<img class="m--profile" src="<c:url value="/images/uploads/${principal.uploadFileName}"/>">
+					</c:when>
+					<c:otherwise>
+						<div class="m--profile"></div>
+					</c:otherwise>
+				</c:choose>
 				<p style="padding: 8px 0px">자라나는 코린이의 은행 관리 시스템입니다.</p>
 				<h3>Some Links</h3>
 				<p>Lorem ipsum dolor sit ame.</p>
