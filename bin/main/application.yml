@@ -16,7 +16,7 @@ spring:
       max-request-size: 20MB
         
   datasource:
-    url: jdbc:mysql://localhost:3306/bank?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/back?serverTimezone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: asd1234
@@ -39,6 +39,9 @@ mybatis:
   - classpath:mapper/**.xml 
   configuration:
     map-underscore-to-camel-case: true
+    
+tenco:
+  key: 46dff551c370352c8608850ec01c42a1
     
     
     
